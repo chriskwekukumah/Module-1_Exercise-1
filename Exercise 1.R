@@ -49,3 +49,21 @@ ggplot(mtcars, aes(x = wt, y = hp)) +
        x = "Weight (1000 lbs)",
        y = "Gross Horsepower") +
   theme_light()
+# Define the function
+plot_car_relationship <- function(data, x_var, y_var, x_label, y_label) {
+  
+  # Using .data[[var]] allows the function to handle string inputs
+  ggplot(data, aes(x = .data[[x_var]], y = .data[[y_var]])) +
+    geom_point(color = "red", size = 3) +
+    geom_smooth(method = "lm", se = FALSE, color = "black") +
+    labs(title = paste("Correlation:", y_label, "vs.", x_label),
+         x = x_label,
+         y = y_label) +
+    theme_light()
+}
+
+# Example 1: Horsepower vs Weight
+plot_car_relationship(mtcars, "wt", "hp", "Weight (1000 lbs)", "Gross Horsepower")
+
+# Example 2: MPG vs Weight
+plot_car_relationship(mtcars, "wt", "mpg", "Weight (1000 lbs)", "Miles Per Gallon")
